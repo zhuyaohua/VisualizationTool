@@ -89,6 +89,7 @@ def hierarchyCDA(rule_code, audit_model_name, modelname, type):
         for key, value in item.items():
             if key != "uids":
                 print(key, "==>", value)
+        print(item["uids"])
         print("*"*50)
     dataframe = dataframe.to_dict(orient="list")
 
@@ -99,5 +100,5 @@ def hierarchyCDA(rule_code, audit_model_name, modelname, type):
 
 if __name__ == "__main__":
     # hierarchyPDA("GH-DH-5", "规划用地指标（海口）", "新琼小学BIM模型_建筑_已分离.jdm")
-    hierarchyCDA("ZNSC-XF-A_B-1-1", "建筑信息", "17325-1#-AS-Center-2020——机电.jdm", "BuildingInfomation")
+    hierarchyCDA("JGSC-DH-A_A-1-1", "项目结构信息", "新琼小学BIM模型_建筑20221102.jdm", "XMJGXX")
     # config("ZNSC-XF-A_B-1-1", "建筑信息")
