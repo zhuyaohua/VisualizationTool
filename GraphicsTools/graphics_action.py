@@ -31,7 +31,7 @@ dataframe = pandas.DataFrame(dataframe,index=None)
 char = altair.Chart(dataframe)
 alt=char.mark_bar(color="red").encode(
     x=altair.X("ruleLibCode:N",title="category"),
-    y=altair.Y("count()",title="总数"),
+    y=altair.Y("count()", title="总数"),
     color="名称:N"
 ).interactive().properties(width=1600, height=900)
 altair_viewer.show(alt)

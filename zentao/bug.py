@@ -88,5 +88,5 @@ def bug_graphics(product="八仙平台XBOAT", type="active"):
     altair_viewer.show(line.interactive().properties(width=1200, height=600))
 
 
-bug_user_graphics.__wrapped__(source)
+# bug_user_graphics.__wrapped__(source)
 bug_user_graphics({"key": "product", "value": "八仙平台XBOAT"})
