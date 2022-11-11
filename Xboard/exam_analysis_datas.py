@@ -9,10 +9,10 @@ from DataTools.mysql_action import mysqldb
 import pandas
 from Data.data_output import savefile
 
-# db = mysqldb(host="10.81.3.57", port=3306, user="exam_analysis", passwd="exam_analysis@Cbim123")
-# userdb = mysqldb(host="10.80.252.199", port=3366, user="root", passwd="Cbim2021-")
-db = mysqldb(host="172.16.211.252", port=3366, user="exam_analysis_read", passwd="AykKM9ElPtoT")
-userdb = mysqldb(host="172.16.211.251", port=3366, user="cbim", passwd="ChRd5@Hdhxt")
+db = mysqldb(host="10.81.3.57", port=3306, user="exam_analysis", passwd="exam_analysis@Cbim123")
+userdb = mysqldb(host="10.80.252.199", port=3366, user="root", passwd="Cbim2021-")
+# db = mysqldb(host="172.16.211.252", port=3366, user="exam_analysis_read", passwd="AykKM9ElPtoT")
+# userdb = mysqldb(host="172.16.211.251", port=3366, user="cbim", passwd="ChRd5@Hdhxt")
 
 cmd = """
 SELECT model_id,user_id,device_id,component_count,operation_type,component_add_count,operation_time 
@@ -116,15 +116,8 @@ def examAnalysisAcounts(modelid: tuple, entid: str):
 
 if __name__ == "__main__":
     # examAnalysisAcount("8a06da6f-1ca1-42f8-b8cd-b7292902ddd6", "878941069851627520")
-    # examAnalysisDatas("0f8088fb-e5b1-4fc9-b2b0-5aa245c3838f-9G-0913", "861664065313968128")
-    import os
-    dirpath = os.path.join(os.path.dirname(os.path.abspath(".")), "Data", "outputfile")
-    db = mysqldb(host="172.16.211.252", port=3366, user="exam_analysis_read", passwd="AykKM9ElPtoT")
-    cmd = """
-    SELECT COUNT(0) FROM exam_analysis.operation_action WHERE model_id = "b193ea04-2161-44a5-b633-ce913af25215-CF" GROUP BY model_id
-    """
-    r = db.db_action(cmd)
-    savefile(r, "bimT.xls", dirpath, filetype="xls")
+    examAnalysisDatas("0f8088fb-e5b1-4fc9-b2b0-5aa245c3838f-9G-0913", "861664065313968128")
+
 
 
 
