@@ -13,7 +13,7 @@ import os
 
 def ghdh_1_6(modelname, visual=False):
 
-    with open(os.path.join(os.path.join(os.path.abspath("."), "unzipfiles", modelname[:-4], "checkdata","%s.json" % modelname[:-4])), "r", encoding="UTF-8") as strem:
+    with open(os.path.join(os.path.join(os.path.abspath(".."), "unzipfiles", modelname[:-4], "checkdata", "%s.json" % modelname[:-4])), "r", encoding="UTF-8") as strem:
         data = json.loads(strem.read())
     checkTables = {}
     for item in data:

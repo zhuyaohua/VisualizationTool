@@ -9,7 +9,7 @@ import json
 from jsonpath import jsonpath
 from DataTools.visual_table import table
 from DataTools.mysql_action import mysqldb
-from Xboard.Delivery.CAD import componentList
+from Xboard.Delivery.deliveryCheck.CAD import componentList
 import os
 import pandas
 
@@ -31,7 +31,7 @@ def config(rule_code, audit_model_name):
 
 def hierarchyPDA(rule_code, audit_model_name, modelname):
     with open(os.path.join(
-            os.path.join(os.path.abspath("."), "unzipfiles", modelname[:-4], "checkdata", "%s.json" % modelname[:-4])),
+            os.path.join(os.path.abspath(".."), "unzipfiles", modelname[:-4], "checkdata", "%s.json" % modelname[:-4])),
             "r", encoding="UTF-8") as strem:
         data = json.loads(strem.read())
     checkTables = {}

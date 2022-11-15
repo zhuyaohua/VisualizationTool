@@ -5,10 +5,8 @@
 @Author:   shenfan
 @Time:     2022/10/20 13:59
 """
-from Xboard.Delivery.GHDH import GHDH
+from Xboard.Delivery.deliveryCheck.GHDH import GHDH
 from jsonpath import jsonpath
-from DataTools.visual_table import table
-import json
 
 
 def ghdh_1_7():

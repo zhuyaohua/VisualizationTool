@@ -5,7 +5,7 @@
 @Author:   shenfan
 @Time:     2022/10/17 11:22
 """
-from Xboard.Delivery.file_type import unzip
+from Xboard.Delivery.deliveryCheck.file_type import unzip
 import json
 from jsonpath import jsonpath
 import os
@@ -303,7 +303,7 @@ class GHDH:
             checkTableHeaders["GH-A-101 控规地块编号"]["value"] = itemLand["properties"]["GH-A-101"]["Value"]
             checkTableHeaders["GH-A-425 居住总人数"]["value"] = itemLand["properties"]["GH-A-425"]["Value"]
 
-        modelDataPath = os.path.join(os.path.abspath("."), "unzipfiles", self.filename[:-4], "checkdata")
+        modelDataPath = os.path.join(os.path.abspath(".."), "unzipfiles", self.filename[:-4], "checkdata")
         if not os.path.exists(modelDataPath): os.mkdir(modelDataPath)
         with open(os.path.join(modelDataPath, "%s.json" % self.filename[:-4]), "w+", encoding="UTF-8") as stream:
             stream.write(json.dumps(checkTables, ensure_ascii=False))

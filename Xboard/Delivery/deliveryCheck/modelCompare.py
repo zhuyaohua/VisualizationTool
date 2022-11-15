@@ -11,7 +11,7 @@ import json
 from jsonpath import jsonpath
 import deepdiff
 
-basePath = os.path.join(os.path.abspath("."), "unzipfiles")
+basePath = os.path.join(os.path.abspath(".."), "unzipfiles")
 
 
 def modelDatas(Model):

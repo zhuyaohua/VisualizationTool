@@ -11,7 +11,7 @@ import json
 
 
 def componentList(modelName, type):
-    baseDir = os.path.dirname(os.path.abspath("__file__"))
+    baseDir = os.path.dirname(os.path.abspath(".."))
     fileDir = os.path.join(baseDir, "unzipfiles", modelName[:-4], "cda.json")
     with open(fileDir, "r", encoding="utf-8") as data:
         datas = json.load(data)
@@ -39,4 +39,4 @@ def componentList(modelName, type):
 
 
 if __name__ == "__main__":
-    componentList("大庆案例 - 2020.jdm", "Rho_Beam")
+    componentList("新琼小学BIM模型_建筑20221102.jdm", "Rho_Beam")

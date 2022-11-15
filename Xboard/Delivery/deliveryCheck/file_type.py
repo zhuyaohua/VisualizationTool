@@ -9,7 +9,7 @@ import filetype
 import zipfile
 import os
 
-base_dir = os.path.abspath(".")
+base_dir = os.path.abspath("..")
 unzip_dir = os.path.join(base_dir, "unzipfiles")
 
 
