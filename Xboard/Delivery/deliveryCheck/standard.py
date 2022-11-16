@@ -4,6 +4,8 @@
 @File:     standard.py
 @Author:   shenfan
 @Time:     2022/11/3 16:07
+
+导出所有的规范&具体规范详情
 """
 from DataTools.mysql_action import mysqldb
 import os

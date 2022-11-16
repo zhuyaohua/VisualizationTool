@@ -4,6 +4,8 @@
 @File:     hierarchyInfo.py
 @Author:   shenfan
 @Time:     2022/10/25 15:12
+
+审查项属性数据
 """
 import json
 from jsonpath import jsonpath

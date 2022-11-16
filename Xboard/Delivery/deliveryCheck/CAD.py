@@ -4,6 +4,8 @@
 @File:     CAD.py
 @Author:   shenfan
 @Time:     2022/10/25 16:03
+
+解析cda.json
 """
 from jsonpath import jsonpath
 import os
@@ -12,7 +14,7 @@ import json
 
 def componentList(modelName, type):
     baseDir = os.path.dirname(os.path.abspath(".."))
-    fileDir = os.path.join(baseDir, "unzipfiles", modelName[:-4], "cda.json")
+    fileDir = os.path.join(baseDir, "Delivery", "unzipfiles", modelName[:-4], "cda.json")
     with open(fileDir, "r", encoding="utf-8") as data:
         datas = json.load(data)
     components = jsonpath(datas, "$.objects..type")

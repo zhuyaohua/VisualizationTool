@@ -4,6 +4,8 @@
 @File:     hierarchy.py
 @Author:   shenfan
 @Time:     2022/10/20 17:27
+
+审查项数据（包含cda.json和pda.json）
 """
 import json
 from jsonpath import jsonpath
@@ -46,12 +48,20 @@ def hierarchyPDA(rule_code, audit_model_name, modelname):
                     checkTables[item] = checkTableHeaders
                     temp = {}
                     for key in checkTableHeaders:
-                        result = jsonpath(buildingdata, "$..%s" % key)[0] if jsonpath(buildingdata,
-                                                                                      "$..%s" % key) else {"value": 0.0,
-                                                                                                           "uids": []}
+                        result = jsonpath(buildingdata, "$..%s" % key)[0] if jsonpath(buildingdata,"$..%s" % key) else {"value": 0.0,"uids": []}
                         checkTableHeaders[key] = result
                         temp[key] = checkTableHeaders[key]["value"]
                     dataframe.append(temp)
+    if "GH-A-207 贴线率" in checkTableHeaders:
+        lineRateDatas = jsonpath(data, "$..nearLineRateList")
+        for lineRateData in lineRateDatas:
+            for item in lineRateData:
+                temp = {}
+                for key in checkTableHeaders:
+                    result = jsonpath(item, "$..%s" % key)[0] if jsonpath(item, "$..%s" % key) else {"value": 0.0,"uids": []}
+                    checkTableHeaders[key] = result
+                    temp[key] = checkTableHeaders[key]["value"]
+                dataframe.append(temp)
     else:
         for item in data:
             checkTables[item] = checkTableHeaders
@@ -99,6 +109,6 @@ def hierarchyCDA(rule_code, audit_model_name, modelname, type):
 
 
 if __name__ == "__main__":
-    # hierarchyPDA("GH-DH-5", "规划用地指标（海口）", "新琼小学BIM模型_建筑_已分离.jdm")
-    hierarchyCDA("JGSC-DH-A_A-1-1", "项目结构信息", "新琼小学BIM模型_建筑20221102.jdm", "XMJGXX")
-    # config("ZNSC-XF-A_B-1-1", "建筑信息")
+    # hierarchyPDA("GH-DH-13", "地上退让审查（控规图则）", "总图贴现率.jdm")
+    hierarchyCDA("JGSC-DH-A_A-1-1", "项目结构信息", "青少年活动中心(施工图审查)_结构备用.jdm", "XMJGXX")
+    # config("GH-DH-0-34", "贴线率审查")

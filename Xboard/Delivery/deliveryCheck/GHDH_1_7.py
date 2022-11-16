@@ -4,6 +4,8 @@
 @File:     GHDH_1_7.py
 @Author:   shenfan
 @Time:     2022/10/20 13:59
+
+单体审查
 """
 from Xboard.Delivery.deliveryCheck.GHDH import GHDH
 from jsonpath import jsonpath

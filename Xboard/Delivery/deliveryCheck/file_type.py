@@ -4,6 +4,8 @@
 @File:     file_type.py
 @Author:   shenfan
 @Time:     2022/10/17 10:28
+
+模型解压
 """
 import filetype
 import zipfile

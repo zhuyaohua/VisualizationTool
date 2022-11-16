@@ -33,4 +33,4 @@ def timestampList(days=False, hours=False, minute=False, length=0):
         print(item)
 
 
-timestampList(days=True, length=10)
+timestampList(days=True, length=4)

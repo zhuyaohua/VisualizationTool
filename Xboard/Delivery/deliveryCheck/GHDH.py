@@ -4,6 +4,8 @@
 @File:     GHDH.py
 @Author:   shenfan
 @Time:     2022/10/17 11:22
+
+解析pda.json
 """
 from Xboard.Delivery.deliveryCheck.file_type import unzip
 import json
@@ -72,6 +74,7 @@ class GHDH:
                                  "GH-A-425 居住总人数": {"value": 0.0, "uids": []},
                                  "GH-A-85 住宅平均层数": {"value": 0.0, "uids": []},
                                  "GH-A-82 可建设用地面积（定线作业表）": {"value": 0.0, "uids": []},
+                                 "nearLineRateList": [],
                                  "buildings": {},
                                  }
             checkTables["{0}-{1}".format(itemLand["landNumber"], itemLand["landName"])] = checkTableHeaders
@@ -261,6 +264,25 @@ class GHDH:
             checkTableHeaders["GH-A-85 住宅平均层数"]["value"] = checkTableHeaders["GH-A-85 住宅平均层数"]["value"] / len(
                 itemLandbuildings)
 
+            #nearLineRateList
+            itemLineList = jsonpath(itemLand, "$..nearLineRateList[?(@.properties)]")
+            for itemLine in itemLineList:
+                linecheck = {
+                    "GH-A-101 控规地块编号": {"value": 0.0, "uids": []},
+                    "GH-A-195 临街街道名称": {"value": 0.0, "uids": []},
+                    "GH-A-196 建筑控制线长度": {"value": 0.0, "uids": []},
+                    "GH-A-197 街墙立面线长度": {"value": 0.0, "uids": []},
+                    "GH-A-207 贴线率": {"value": 0.0, "uids": []},
+                }
+                checkTableHeaders["nearLineRateList"].append(linecheck)
+                linecheck["GH-A-101 控规地块编号"]["value"] = landCode
+                linecheck["GH-A-195 临街街道名称"]["value"] = itemLine["properties"]["GH-A-195"]["Value"]
+                linecheck["GH-A-196 建筑控制线长度"]["value"] = itemLine["properties"]["GH-A-196"]["Value"]["valueStr"]
+                linecheck["GH-A-196 建筑控制线长度"]["uids"].extend(itemLine["properties"]["GH-A-196"]["Value"]["guidList"])
+                linecheck["GH-A-197 街墙立面线长度"]["value"] = itemLine["properties"]["GH-A-197"]["Value"]["valueStr"]
+                linecheck["GH-A-197 街墙立面线长度"]["uids"].extend(itemLine["properties"]["GH-A-197"]["Value"]["guidList"])
+                linecheck["GH-A-207 贴线率"]["value"] = itemLine["properties"]["GH-A-207"]["Value"]
+
             landparks = jsonpath(itemLand, "$..parkingList..GH-A-138.Value")
             landparks = landparks if landparks else []
             buidingparks = jsonpath(buildingList,
@@ -310,8 +332,6 @@ class GHDH:
 
 
 if __name__ == "__main__":
-    r = GHDH(r"C:\Users\SHENFAN\Desktop\中设数字\CBIM-中设数字-CIM包\CIM\海口项目", "万花项目0927.cim")
-    r.ghdh_data()
-    r2 = GHDH(r"C:\Users\SHENFAN\Desktop\中设数字\CBIM-中设数字-CIM包\CIM\海口项目", "万花项目0928.cim")
-    r2.ghdh_data()
-    # r.ghdh("GH-DH-5", "用地基本信息（海口）")
+    r = GHDH(r"C:\Users\SHENFAN\Desktop\中设数字\CBIM-中设数字-CIM包\CIM\海口项目\1130迭代施工图结构模型审查模型", "青少年活动中心(施工图审查)_结构备用.jdm")
+    # r.ghdh_data()
+
