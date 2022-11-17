@@ -37,7 +37,7 @@ def unzip(filepath, filename):
 
 
 if __name__ == "__main__":
-    unzip(r"C:\Users\SHENFAN\Desktop\中设数字\企业微信\WXWork\1688853067030957\Cache\File\2022-11", "新琼小学BIM模型_建筑20221102.jdm")
+    unzip(r"C:\Users\SHENFAN\Desktop\中设数字\企业微信\WXWork\1688853067030957\Cache\File\2022-11", "大庆案例 - 1117.cim")
 
 
 

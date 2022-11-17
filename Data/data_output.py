@@ -11,8 +11,6 @@ from datetime import datetime
 from styleframe import StyleFrame
 
 
-
-
 def savefile(data, filename, outputdir, filetype="csv"):
     dataframe = pandas.DataFrame(data, index=None)
     pandas.set_option('display.float_format', lambda x: '%.2f' % x)

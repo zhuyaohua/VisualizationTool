@@ -12,6 +12,7 @@ from jsonpath import jsonpath
 from DataTools.visual_table import table
 from DataTools.mysql_action import mysqldb
 from Xboard.Delivery.deliveryCheck.CAD import componentList
+from Xboard.Delivery.deliveryCheck.ruleCompare import check, ruleCompare, rule
 import os
 import pandas
 
@@ -48,7 +49,9 @@ def hierarchyPDA(rule_code, audit_model_name, modelname):
                     checkTables[item] = checkTableHeaders
                     temp = {}
                     for key in checkTableHeaders:
-                        result = jsonpath(buildingdata, "$..%s" % key)[0] if jsonpath(buildingdata,"$..%s" % key) else {"value": 0.0,"uids": []}
+                        result = jsonpath(buildingdata, "$..%s" % key)[0] if jsonpath(buildingdata,
+                                                                                      "$..%s" % key) else {"value": 0.0,
+                                                                                                           "uids": []}
                         checkTableHeaders[key] = result
                         temp[key] = checkTableHeaders[key]["value"]
                     dataframe.append(temp)
@@ -58,7 +61,8 @@ def hierarchyPDA(rule_code, audit_model_name, modelname):
             for item in lineRateData:
                 temp = {}
                 for key in checkTableHeaders:
-                    result = jsonpath(item, "$..%s" % key)[0] if jsonpath(item, "$..%s" % key) else {"value": 0.0,"uids": []}
+                    result = jsonpath(item, "$..%s" % key)[0] if jsonpath(item, "$..%s" % key) else {"value": 0.0,
+                                                                                                     "uids": []}
                     checkTableHeaders[key] = result
                     temp[key] = checkTableHeaders[key]["value"]
                 dataframe.append(temp)
@@ -79,13 +83,15 @@ def hierarchyPDA(rule_code, audit_model_name, modelname):
     table(tableHeaders, tableValues)
 
 
-def hierarchyCDA(rule_code, audit_model_name, modelname, type):
+def hierarchyCDA(rule_code, audit_model_name, modelname, type, ruleName, resultParam):
     datas = componentList(modelname, type)
     checkTables = {}
     checkTableHeaders = config(rule_code, audit_model_name)
     dataframe = []
 
-    for item in datas[type]:
+    datas = check(ruleCompare(rule(ruleName), resultParam), datas[type], resultParam)
+
+    for item in datas:
         temp = {}
         for key in checkTableHeaders:
             if key.split(" ")[0] in item:
@@ -95,12 +101,14 @@ def hierarchyCDA(rule_code, audit_model_name, modelname, type):
         dataframe.append(temp)
 
     dataframe = pandas.DataFrame(dataframe, index=None)
-    for item in datas[type]:
+    for item in datas:
         for key, value in item.items():
             if key != "uids":
+                if resultParam in key:
+                    print("\033[1;31m 构件的合法值为：\033[0m")
                 print(key, "==>", value)
         print(item["uids"])
-        print("*"*50)
+        print("*" * 50)
     dataframe = dataframe.to_dict(orient="list")
 
     tableHeaders = list(dataframe.keys())
@@ -110,5 +118,5 @@ def hierarchyCDA(rule_code, audit_model_name, modelname, type):
 
 if __name__ == "__main__":
     # hierarchyPDA("GH-DH-13", "地上退让审查（控规图则）", "总图贴现率.jdm")
-    hierarchyCDA("JGSC-DH-A_A-1-1", "项目结构信息", "青少年活动中心(施工图审查)_结构备用.jdm", "XMJGXX")
-    # config("GH-DH-0-34", "贴线率审查")
+    hierarchyCDA("JGSC-DH-A_A-1-1", "项目结构信息", "大庆案例 - 1117.cim", "XMJGXX", "结构-项目结构信息-高宽比", "SC-S-108")
+    # config("GH-DH-13", "地上退让审查（控规图则）")
